@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, Mika!</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Page 1: Mika's Photo and Birthday Message -->
+    <div id="page1" class="container text-center my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="photo-container">
+                    <img src="https://assets.onecompiler.app/42r6hjnav/42r6hs234/FpjSbNDk.jpg" alt="Mika's Photo" class="mika-photo img-fluid">
+                </div>
+                <h1 class="mt-4">Happy Birthday, Mika!</h1>
+                <p class="lead">These last 5 months with you have been the most beautiful journey of my life. You are everything I need and more. You make every day brighter and my heart fuller. ❤️</p>
+                <button class="btn btn-primary btn-lg mt-3" onclick="goToPage2()">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 2: Couple Photo, Gift Photo, and Message Generator -->
+    <div id="page2" class="container text-center my-5" style="display:none;">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="photo-container mb-3">
+                    <img src="https://assets.onecompiler.app/42r6hjnav/42r6hs234/447846543_1000904578221724_5083907000560546571_n.jpg" alt="Our Photo" class="couple-photo img-fluid">
+                </div>
+                <div class="photo-container mb-3">
+                    <img src="https://assets.onecompiler.app/42r6hjnav/42uxda7ea/pQ5e_uTU.jpg" alt="Gift Photo" class="gift-photo img-fluid">
+                </div>
+                <p id="generatedMessage" class="mt-4 lead"></p>
+                <button class="btn btn-success btn-lg mt-3" onclick="generateMessage()">Show How Grateful I Am</button>
+                <!-- New "I Love You" Button -->
+                <button class="btn btn-danger btn-lg mt-3" onclick="iLoveYou()">I Love You, Mika ❤️</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
