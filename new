@@ -1,0 +1,134 @@
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+// Student class
+class Student implements Serializable {
+    private static final long serialVersionUID = 1L;
+    private String studentID;
+    private String name;
+    private Double[] grades;
+
+    public Student(String studentID, String name, Double[] grades) {
+        this.studentID = studentID;
+        this.name = name;
+        this.grades = grades;
+    }
+
+    public String getStudentID() {
+        return studentID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Double[] getGrades() {
+        return grades;
+    }
+
+    public double calculateAverageGrade() {
+        double sum = 0;
+        for (double grade : grades) {
+            sum += grade;
+        }
+        return sum / grades.length;
+    }
+
+    @Override
+    public String toString() {
+        return "StudentID: " + studentID + ", Name: " + name + ", Grades: " + java.util.Arrays.toString(grades) + ", Average: " + calculateAverageGrade();
+    }
+}
+
+// StudentManager class
+class StudentManager {
+    private ArrayList<Student> students;
+
+    public StudentManager() {
+        students = new ArrayList<>();
+    }
+
+    public void addStudent(Student student) {
+        students.add(student);
+    }
+
+    public void displayAllStudents() {
+        for (Student student : students) {
+            System.out.println(student);
+        }
+    }
+
+    public void saveRecords(String filename) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
+            oos.writeObject(students);
+            System.out.println("Records saved successfully.");
+        } catch (IOException e) {
+            System.out.println("Error saving records: " + e.getMessage());
+        }
+    }
+
+    public void loadRecords(String filename) {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
+            students = (ArrayList<Student>) ois.readObject();
+            System.out.println("Records loaded successfully.");
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error loading records: " + e.getMessage());
+        }
+    }
+}
+
+// Main class
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        StudentManager manager = new StudentManager();
+        String filename = "students.dat";
+
+        while (true) {
+            System.out.println("Menu:");
+            System.out.println("1. Add Student");
+            System.out.println("2. View Student List");
+            System.out.println("3. Save Student File");
+            System.out.println("4. Load Student File");
+            System.out.println("5. Exit");
+
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine();  // Consume newline
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter Student ID: ");
+                    String studentID = scanner.nextLine();
+                    System.out.print("Enter Name: ");
+                    String name = scanner.nextLine();
+                    System.out.print("Enter number of grades: ");
+                    int numGrades = scanner.nextInt();
+                    Double[] grades = new Double[numGrades];
+                    for (int i = 0; i < numGrades; i++) {
+                        System.out.print("Enter grade " + (i + 1) + ": ");
+                        grades[i] = scanner.nextDouble();
+                    }
+                    scanner.nextLine();  // Consume newline
+                    manager.addStudent(new Student(studentID, name, grades));
+                    break;
+                case 2:
+                    manager.displayAllStudents();
+                    break;
+                case 3:
+                    manager.saveRecords(filename);
+                    break;
+                case 4:
+                    manager.loadRecords(filename);
+                    break;
+                case 5:
+                    System.out.println("Exiting...");
+                    scanner.close();
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+}
